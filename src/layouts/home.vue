@@ -14,7 +14,7 @@
 import { useRootStore } from "@/stores/RootStore";
 import VAlerts from "@/components/controls/VAlerts.vue";
 
-import type { IAlert } from "@/entities/alert";
+import type { IAlert } from "@/types/alert";
 
 export default defineComponent({
   components: {
