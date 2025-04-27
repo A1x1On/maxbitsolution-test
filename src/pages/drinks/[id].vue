@@ -25,7 +25,9 @@
 </template>
 
 <script lang="ts">
+import { useRootStore } from "@/stores/RootStore";
 import { useDrinksStore } from "@/stores/DrinksStore";
+
 import layout from "@/layouts/home.vue";
 
 export default defineComponent({
@@ -35,11 +37,12 @@ export default defineComponent({
     layout,
   },
   setup() {
+    const rootStore = useRootStore();
     const drinksStore = useDrinksStore();
     const route = useRoute();
 
     const onFetch = async (name: string = "") => {
-      await drinksStore.fetch(name);
+      await drinksStore.fetch(name).catch((err) => rootStore.alert.caught(err));
     };
 
     watchEffect(() => {

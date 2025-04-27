@@ -1,4 +1,6 @@
 <template>
+  <VAlerts ref="refAlerts" />
+
   <div class="container">
     <header class="container__header"></header>
     <section class="container__section">
@@ -9,9 +11,35 @@
 </template>
 
 <script lang="ts">
+import { useRootStore } from "@/stores/RootStore";
+import VAlerts from "@/components/controls/VAlerts.vue";
+
+import type { IAlert } from "@/entities/alert";
+
 export default defineComponent({
-  components: {},
-  setup() {},
+  components: {
+    VAlerts,
+  },
+  setup() {
+    const rootStore = useRootStore();
+
+    const refAlerts = ref<IAlert>({
+      success: () => undefined,
+      error: () => undefined,
+      info: () => undefined,
+      warning: () => undefined,
+      caught: () => undefined,
+    });
+
+    onMounted(() => {
+      rootStore.alert = refAlerts.value;
+    });
+
+    return {
+      rootStore,
+      refAlerts,
+    };
+  },
 });
 </script>
 
